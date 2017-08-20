@@ -102,7 +102,7 @@
     "same_as": {
       "type": "array",
       "items": {
-        "type": "string",
+        "type": "string"
       }
     },
     "sections": {
