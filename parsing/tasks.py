@@ -97,7 +97,13 @@ def task_parse_textbooks(schools=None, all=False):
 
 @task()
 def task_parse_school(school, years_and_terms, textbooks=False):
-    """Call the django management commands to start parse."""
+    """Call the django management commands to start parse.
+
+    Args:
+        school (str): School to parse.
+        years_and_terms (dict): Years and terms dictionary.
+        textbooks (bool, optional): Flag to parse textbooks.
+    """
     filename = '{}/schools/{}/data/courses_{}.json'.format(
         settings.PARSING_MODULE,
         school,
@@ -110,7 +116,7 @@ def task_parse_school(school, years_and_terms, textbooks=False):
     )
 
     management.call_command('ingest', school,
-                            years_and_terms=json.dumps(years_and_terms),
+                            years_and_terms=years_and_terms,
                             textbooks=textbooks,
                             display_progress_bar=False,
                             verbosity=0,
