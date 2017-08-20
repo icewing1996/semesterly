@@ -56,11 +56,6 @@ class Command(BaseCommand):
         tracker = Tracker()
         self.stat_view = StatView()
         tracker.add_viewer(self.stat_view)
-        if options['display_progress_bar']:
-            tracker.add_viewer(StatProgressBar('{valid}/{total}',
-                                               statistics=self.stat_view),
-                               name='progressbar')
-
         tracker.mode = 'digesting'
         tracker.start()
 
@@ -74,6 +69,11 @@ class Command(BaseCommand):
         """Run the command."""
         tracker.school = school
         tracker.mode = 'validating'
+        if options['display_progress_bar']:
+            tracker.add_viewer(
+                StatProgressBar('{valid}/{total}', statistics=self.stat_view),
+                name='progressbar'
+            )
         logger = logging.getLogger('parsing.schools.' + school)
         logger.debug('Command options:', options)
 
@@ -97,8 +97,9 @@ class Command(BaseCommand):
             logging.exception('Failed validation before digestion')
             return  # Skip digestion for this school.
 
-        tracker.remove_viewer('progressbar')
-        tracker.add_viewer(ETAProgressBar(), name='progressbar')
+        if options['display_progress_bar']:
+            tracker.remove_viewer('progressbar')
+            tracker.add_viewer(ETAProgressBar(), name='progressbar')
         tracker.mode = 'digesting'
 
         with open(options['data'].format(school=school, type=data_type), 'r') as file:
