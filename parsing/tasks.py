@@ -98,7 +98,7 @@ def task_parse_textbooks(schools=None, all=False):
 @task()
 def task_parse_school(school, years_and_terms, textbooks=False):
     """Call the django management commands to start parse."""
-    filename = '{}/{}/data/courses_{}.json'.format(
+    filename = '{}/schools/{}/data/courses_{}.json'.format(
         settings.PARSING_MODULE,
         school,
         '-'.join(
