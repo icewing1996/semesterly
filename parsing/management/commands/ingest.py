@@ -86,7 +86,7 @@ class Command(BaseCommand):
                 options['config'] = json.load(file)
 
         logger = logging.getLogger(parser.__module__ + '.' + parser.__name__)
-        logger.debug('Command options:', options)
+        logger.debug('Ingest command options:', options)
 
         try:
             p = parser(

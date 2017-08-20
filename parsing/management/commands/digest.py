@@ -75,7 +75,7 @@ class Command(BaseCommand):
                 name='progressbar'
             )
         logger = logging.getLogger('parsing.schools.' + school)
-        logger.debug('Command options:', options)
+        logger.debug('Digest command options:', options)
 
         # Load config file to dictionary.
         if isinstance(options['config'], str):
