@@ -103,7 +103,6 @@
       "type": "array",
       "items": {
         "type": "string",
-        "maxLength": 20
       }
     },
     "sections": {
