@@ -117,13 +117,13 @@ class Command(BaseCommand):
         except PipelineException:
             logger.exception('Ingestion failed for ' + school)
             try:
-                logger.debug('Ingestor dump:', p.ingestor)
+                logger.debug('Ingestor dump for ' + school, p.ingestor)
             except UnboundLocalError:
                 pass
         except Exception:
             logger.exception('Ingestion failed for ' + school)
 
-        logger.info('Ingestion overview:', self.stat_view.report())
+        logger.info('Ingestion overview for ' + school, self.stat_view.report())
 
     @staticmethod
     def _resolve_years_and_terms(options):

@@ -77,11 +77,11 @@ class PeoplesoftParser(BaseParser):
 
         # NOTE: umich will do nothing and return an empty dict
         soup, params = self._goto_search_page(self.url_params)
-        self.years_and_terms = dict_filter_by_dict(
-            PeoplesoftParser._get_years_and_terms(soup),
+        years_and_terms = dict_filter_by_dict(
+            self._get_years_and_terms(soup),
             years_and_terms_filter
         )
-        for year, terms in self.years_and_terms.items():
+        for year, terms in years_and_terms.items():
             self.ingestor['year'] = year
             for term_name, term_code in terms.items():
                 soup = self._term_update(term_code, params)
@@ -146,8 +146,7 @@ class PeoplesoftParser(BaseParser):
             )
         )
 
-    @staticmethod
-    def _get_years_and_terms(soup):
+    def _get_years_and_terms(self, soup):
         term_datas = soup.find(
             'select',
             id='CLASS_SRCH_WRK2_STRM$35$'
@@ -528,11 +527,15 @@ class QPeoplesoftParser(PeoplesoftParser):
 class UPeoplesoftParser(PeoplesoftParser):
     """Modifies Peoplesoft parser to accomodate different structure (umich)."""
 
-    def __init__(self, school, url, term_base_url=None, **kwargs):
+    def __init__(self, school, url, term_base_url=None, years_and_terms=None, **kwargs):
         """Construct Umich parsing object."""
         # Each term has its own page that must be requested from base url.
         self.term_base_url = term_base_url
+        self.years_and_terms_static = years_and_terms
         super(UPeoplesoftParser, self).__init__(school, url, **kwargs)
+
+    def _get_years_and_terms(self, soup):
+        return self.years_and_terms_static
 
     def _get_departments(self, soup, departments_filter=None):
         # extract department query list
