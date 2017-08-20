@@ -225,12 +225,11 @@ class Validator:
             ValidationError: Description
         """
         data = Validator.file_to_json(data_path)['$data']
-        Validator.schema_validate(data, *Validator.SCHEMAS.datalist)
+        # Validator.schema_validate(data, *Validator.SCHEMAS.datalist)
 
-        for obj in data:
-            obj = DotDict(obj)
+        for obj in map(DotDict, data):
             try:
-                self.kind_to_validation_function[obj.kind](obj)
+                self.validate(obj)
                 self.tracker.stats = dict(kind=obj.kind, status='valid')
             except ValidationError as e:
                 logging.exception('Validation error')
@@ -241,6 +240,7 @@ class Validator:
                 # warnings.warn('', e, stacklevel=2)
             self.tracker.stats = dict(kind=obj.kind, status='total')
 
+        # TODO - this should be handled by caller
         self.tracker.end()
 
     def validate_course(self, course):
@@ -400,6 +400,7 @@ class Validator:
 
         if self.relative:
             if section.course.code not in self.seen and self.transaction.key != section.course.code:
+                print(self.seen)
                 raise ValidationError(
                     'course code {} isnt defined'.format(section.course.code),
                     section

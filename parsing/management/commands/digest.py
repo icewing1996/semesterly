@@ -113,8 +113,7 @@ class Command(BaseCommand):
                      diff=options['diff'],
                      load=options['load'],
                      output=options['output_diff'].format(school=school,
-                                                         type=data_type),
-            )
+                                                          type=data_type))
 
         except DigestionError:
             logging.exception('Failed digestion')
@@ -123,6 +122,6 @@ class Command(BaseCommand):
         except Exception:
             logging.exception('Failed digestion with uncaught exception')
 
-        logging.info('Digestion overview:', self.stat_view.report())
+        logging.info('Digestion overview for ' + school, self.stat_view.report())
 
         # TODO - move to periodic tasks
