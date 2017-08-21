@@ -75,7 +75,7 @@ class Command(BaseCommand):
                 name='progressbar'
             )
         logger = logging.getLogger('parsing.schools.' + school)
-        logger.debug('Digest command options:', options)
+        logger.debug('Digest command options:' + str(options))
 
         # Load config file to dictionary.
         if isinstance(options['config'], str):
@@ -123,6 +123,6 @@ class Command(BaseCommand):
         except Exception:
             logging.exception('Failed digestion with uncaught exception')
 
-        logging.info('Digestion overview for ' + school, self.stat_view.report())
+        logging.info('Digestion overview for ' + school + ': ' + str(self.stat_view.report()))
 
         # TODO - move to periodic tasks

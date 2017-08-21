@@ -85,7 +85,7 @@ class Command(BaseCommand):
                 options['config'] = json.load(file)
 
         logger = logging.getLogger(parser.__module__ + '.' + parser.__name__)
-        logger.debug('Ingest command options:', options)
+        logger.debug('Ingest command options:' + str(options))
 
         try:
             p = parser(
@@ -122,7 +122,7 @@ class Command(BaseCommand):
         except Exception:
             logger.exception('Ingestion failed for ' + school + ' ' + parser_type)
 
-        logger.info('Ingestion overview for ' + school, self.stat_view.report())
+        logger.info('Ingestion overview for ' + school + ': ' + str(self.stat_view.report()))
 
     @staticmethod
     def _resolve_years_and_terms(options):
