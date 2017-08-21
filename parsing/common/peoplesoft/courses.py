@@ -17,7 +17,7 @@ import sys
 
 from abc import ABCMeta
 
-from parsing.common.textbooks.amazon import amazon_textbook_fields
+from parsing.common.textbooks.amazon_textbooks import amazon_textbook_fields
 from parsing.library.base_parser import BaseParser
 from parsing.library.exceptions import ParseError
 from parsing.library.utils import dict_filter_by_dict, dict_filter_by_list

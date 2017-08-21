@@ -61,7 +61,6 @@ class Command(BaseCommand):
         for parser_type in options['types']:
             for school in options['schools']:
                 tracker.school = school
-
                 self.run(SCHOOLS_MAP[school].parsers[parser_type],
                          tracker,
                          options,

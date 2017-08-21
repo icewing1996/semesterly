@@ -684,7 +684,8 @@ class Validator:
         if start > end:
             raise ValidationError('start {} > end {}'.format(start, end))
         elif start == end:
-            raise ValidationWarning('start {} = end {}'.format(start, end))
+            pass  # TODO - this should be reported
+            # raise ValidationWarning('start {} = end {}'.format(start, end))
         # NOTE: there exists an unhandled case if the end time is midnight.
 
     def validate_directory(self, directory):
