@@ -272,7 +272,7 @@ class Parser(BaseParser):
                 continue
             self.ingestor['time_start'] = time.group(1)
             self.ingestor['time_end'] = time.group(2)
-            self.ingestor['days'] = [col[2].text]
+            self.ingestor['days'] = list(col[2].text)
             filtered_days = filter(lambda x: x.replace(u'\xa0', u''),
                                    self.ingestor['days'])
             if len(filtered_days) == 0:

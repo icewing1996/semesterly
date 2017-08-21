@@ -20,6 +20,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
+from __future__ import absolute_import
+
 import djcelery
 import os
 import yaml
@@ -40,7 +42,7 @@ def get_secret(key):
         return os.environ[key]
     except KeyError:
         try:
-            from sensitive import SECRETS
+            from semesterly.sensitive import SECRETS
             return SECRETS[key]
         except:
             try:
@@ -314,7 +316,7 @@ CACHES = {
 CACHALOT_ENABLED = True
 
 try:
-    from local_settings import *
+    from semesterly.local_settings import *
 except:
     pass
 
