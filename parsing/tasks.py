@@ -12,8 +12,6 @@
 
 from __future__ import absolute_import, division, print_function
 
-import simplejson as json
-
 from celery.decorators import periodic_task, task
 from celery.task.schedules import crontab
 from celery.utils.log import get_task_logger
@@ -24,6 +22,7 @@ from timetable.school_mappers import SCHOOLS_MAP
 from parsing.schools.active import ACTIVE_SCHOOLS
 
 logger = get_task_logger(__name__)
+
 
 @periodic_task(
     run_every=(crontab(hour=00, minute=00)),
@@ -104,6 +103,7 @@ def task_parse_school(school, years_and_terms, textbooks=False):
         years_and_terms (dict): Years and terms dictionary.
         textbooks (bool, optional): Flag to parse textbooks.
     """
+    logger.info('Starting parse for ' + school + ' ' + str(years_and_terms))
     filename = '{}/schools/{}/data/courses_{}.json'.format(
         settings.PARSING_MODULE,
         school,
@@ -126,4 +126,4 @@ def task_parse_school(school, years_and_terms, textbooks=False):
                             display_progress_bar=False,
                             verbosity=0,
                             data=filename)
-    print('Parsed {} {}'.format(school, years_and_terms))
+    logger.info('Finished parse for ' + school + ' ' + str(years_and_terms))
