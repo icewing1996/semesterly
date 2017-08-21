@@ -294,10 +294,10 @@ class ValidationTest(SimpleTestCase):
             invalid = deepcopy(course)
             invalid['school']['code'] = 'nottest'
             validator.validate(invalid)
-        with self.assertRaises(ValidationError):
-            invalid = deepcopy(course)
-            invalid['same_as'].append('abc')
-            validator.validate(invalid)
+        # with self.assertRaises(ValidationError):
+        #     invalid = deepcopy(course)
+        #     invalid['same_as'].append('abc')
+        #     validator.validate(invalid)
         with self.assertRaises(ValidationError):
             invalid = deepcopy(course)
             invalid['code'] = 'abc'
@@ -403,10 +403,10 @@ class ValidationTest(SimpleTestCase):
             invalid = deepcopy(meeting)
             invalid['time']['start'] = '15:00'
             validator.validate(invalid)
-        with self.assertRaises(ValidationWarning):
-            invalid = deepcopy(meeting)
-            invalid['time']['start'] = '14:50'
-            validator.validate(invalid)
+        # with self.assertRaises(ValidationWarning):
+        #     invalid = deepcopy(meeting)
+        #     invalid['time']['start'] = '14:50'
+        #     validator.validate(invalid)
         with self.assertRaises(ValidationWarning):
             invalid = deepcopy(meeting)
             invalid['location']['campus'] = 'NotInConfigList'
